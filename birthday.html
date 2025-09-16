@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Anniversary 💕</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to bottom, #ffe6f0, #ffd6e9);
+      overflow: hidden;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    h1 {
+      position: absolute;
+      top: 8%;
+      font-size: 2em;
+      color: #b30d6f;
+      text-shadow: 2px 2px #fff;
+      opacity: 0;
+      animation: fadeInBounce 2s forwards 3s;
+      z-index: 5;
+      text-align: center;
+      width: 100%;
+    }
+
+    h2 {
+      position: absolute;
+      top: 15%;
+      font-size: 1.5em;
+      color: #ff4081;
+      opacity: 0;
+      animation: fadeIn 2s forwards 4.5s;
+      z-index: 5;
+      text-align: center;
+      width: 100%;
+    }
+
+    .cake {
+      position: relative;
+      width: 180px;
+      height: 200px;
+      z-index: 5;
+    }
+
+    .layer {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 10px;
+      animation: drop 1s ease forwards;
+      opacity: 0;
+    }
+
+    .layer1 {
+      width: 160px;
+      height: 50px;
+      background: #ff99cc;
+      bottom: 0;
+      animation-delay: 1s;
+    }
+
+    .layer2 {
+      width: 130px;
+      height: 40px;
+      background: #ff66b2;
+      bottom: 50px;
+      animation-delay: 2s;
+    }
+
+    .layer3 {
+      width: 100px;
+      height: 35px;
+      background: #ff3399;
+      bottom: 90px;
+      animation-delay: 3s;
+    }
+
+    .candle {
+      width: 10px;
+      height: 40px;
+      background: #fff;
+      position: absolute;
+      left: 50%;
+      bottom: 125px;
+      transform: translateX(-50%);
+      animation: fadeIn 1s forwards 5s;
+      opacity: 0;
+    }
+
+    .flame {
+      width: 15px;
+      height: 15px;
+      background: radial-gradient(circle, yellow 40%, orange 70%);
+      border-radius: 50%;
+      position: absolute;
+      top: -15px;
+      left: -2.5px;
+      animation: flicker 0.5s infinite alternate;
+    }
+
+    /* Blow-out animation */
+    .blow {
+      animation: fadeOut 1s forwards;
+    }
+
+    /* Button styles */
+    .btn {
+      position: absolute;
+      bottom: 30px;
+      padding: 12px 24px;
+      background: #b30d6f;
+      color: white;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 10;
+      opacity: 0;
+      animation: fadeIn 1s forwards 6s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+      background: #8a0a56;
+    }
+
+    /* Confetti styles */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 14px;
+      opacity: 0.8;
+      animation: fall linear forwards;
+    }
+
+    @keyframes drop {
+      0% {
+        transform: translate(-50%, -200px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(-50%);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInBounce {
+      0% { opacity: 0; transform: scale(0.5) translateY(-50px); }
+      60% { opacity: 1; transform: scale(1.2) translateY(10px); }
+      80% { transform: scale(0.9) translateY(-5px); }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    @keyframes flicker {
+      from { transform: scale(1); opacity: 1; }
+      to { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.3); }
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Happy Anniversary 💖</h1>
+  <h2>Peri & Periamma</h2>
+
+  <div class="cake">
+    <div class="layer layer1"></div>
+    <div class="layer layer2"></div>
+    <div class="layer layer3"></div>
+    <div class="candle">
+      <div class="flame" id="flame"></div>
+    </div>
+  </div>
+
+  <button class="btn" onclick="blowCandle()">💨 Blow the Candle</button>
+
+  <audio autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    function createConfetti() {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+
+      // random position, color, and animation
+      confetti.style.left = Math.random() * 100 + "vw";
+      confetti.style.top = "-10px";
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      confetti.style.animationDuration = 3 + Math.random() * 3 + "s";
+
+      document.body.appendChild(confetti);
+
+      // remove after animation
+      setTimeout(() => {
+        confetti.remove();
+      }, 6000);
+    }
+
+    // Create confetti continuously
+    setInterval(createConfetti, 200);
+
+    // Blow out candle
+    function blowCandle() {
+      const flame = document.getElementById("flame");
+      flame.classList.add("blow");
+      setTimeout(() => {
+        flame.style.display = "none";
+        confettiBurst(); // Trigger confetti burst 🎊
+        document.querySelector(".btn").style.display = "none"; // hide button after use
+      }, 1000);
+    }
+
+    // Confetti burst after blowing candle
+    function confettiBurst() {
+      for (let i = 0; i < 80; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.top = Math.random() * 50 + "vh";
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        confetti.style.animationDuration = 2 + Math.random() * 2 + "s";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+          confetti.remove();
+        }, 4000);
+      }
+    }
+  </script>
+</body>
+</html>
