@@ -13,40 +13,37 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: linear-gradient(to bottom, #ffe6f0, #ffd6e9);
+      background: url("bg.jpg") no-repeat center center/cover; /* background image */
       overflow: hidden;
       font-family: 'Comic Sans MS', cursive, sans-serif;
     }
 
     h1 {
-      position: absolute;
-      top: 8%;
-      font-size: 2em;
-      color: #b30d6f;
+      font-size: 6vw; /* responsive */
+      color: #5c4033;
       text-shadow: 2px 2px #fff;
       opacity: 0;
       animation: fadeInBounce 2s forwards 3s;
       z-index: 5;
       text-align: center;
-      width: 100%;
+      margin: 2vw 0 0 0;
     }
 
     h2 {
-      position: absolute;
-      top: 15%;
-      font-size: 1.5em;
-      color: #ff4081;
+      font-size: 4.5vw;
+      color: #5c4033;
       opacity: 0;
       animation: fadeIn 2s forwards 4.5s;
       z-index: 5;
       text-align: center;
-      width: 100%;
+      margin: 1vw 0 3vw 0;
     }
 
     .cake {
       position: relative;
-      width: 180px;
-      height: 200px;
+      width: 40vw;
+      max-width: 180px;
+      height: 40vh;
       z-index: 5;
     }
 
@@ -54,110 +51,111 @@
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      border-radius: 10px;
+      border-radius: 8px;
       animation: drop 1s ease forwards;
       opacity: 0;
     }
 
     .layer1 {
-      width: 160px;
-      height: 50px;
-      background: #ff99cc;
+      width: 85%;
+      height: 8vh;
+      background: #4b2e2e;
       bottom: 0;
       animation-delay: 1s;
     }
 
     .layer2 {
-      width: 130px;
-      height: 40px;
-      background: #ff66b2;
-      bottom: 50px;
+      width: 70%;
+      height: 6vh;
+      background: #6b3f2e;
+      bottom: 8vh;
       animation-delay: 2s;
     }
 
     .layer3 {
-      width: 100px;
-      height: 35px;
-      background: #ff3399;
-      bottom: 90px;
+      width: 55%;
+      height: 5vh;
+      background: #8b5a2b;
+      bottom: 14vh;
       animation-delay: 3s;
     }
 
+    /* Candle */
     .candle {
-      width: 10px;
-      height: 40px;
-      background: #fff;
+      width: 5vw;
+      max-width: 20px;
+      height: 12vh;
+      background: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 5px,
+        #ff4081 5px,
+        #ff4081 10px
+      );
+      border-radius: 5px;
       position: absolute;
       left: 50%;
-      bottom: 125px;
+      bottom: 20vh;
       transform: translateX(-50%);
       animation: fadeIn 1s forwards 5s;
       opacity: 0;
+      box-shadow: 0 0 6px rgba(0,0,0,0.2);
     }
 
     .flame {
-      width: 15px;
-      height: 15px;
-      background: radial-gradient(circle, yellow 40%, orange 70%);
+      width: 4vw;
+      max-width: 18px;
+      height: 5vh;
+      background: radial-gradient(circle at 50% 50%, yellow 40%, orange 70%, transparent 100%);
       border-radius: 50%;
       position: absolute;
-      top: -15px;
-      left: -2.5px;
-      animation: flicker 0.5s infinite alternate;
+      top: -5vh;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: flicker 0.4s infinite alternate;
+      box-shadow: 0 0 15px 5px rgba(255, 165, 0, 0.6);
     }
 
-    /* Blow-out animation */
     .blow {
       animation: fadeOut 1s forwards;
     }
 
-    /* Button styles */
+    /* Button */
     .btn {
-      position: absolute;
-      bottom: 30px;
-      padding: 12px 24px;
-      background: #b30d6f;
+      margin-top: 5vh;
+      padding: 3vw 6vw;
+      background: #5c4033;
       color: white;
-      font-size: 1em;
+      font-size: 4vw;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       z-index: 10;
       opacity: 0;
       animation: fadeIn 1s forwards 6s;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
 
     .btn:active {
       transform: scale(0.95);
-      background: #8a0a56;
+      background: #3d2a1d;
     }
 
-    /* Confetti styles */
+    /* Confetti */
     .confetti {
       position: absolute;
-      width: 8px;
-      height: 14px;
-      opacity: 0.8;
+      width: 1vw;
+      height: 2vh;
+      opacity: 0.9;
       animation: fall linear forwards;
     }
 
     @keyframes drop {
-      0% {
-        transform: translate(-50%, -200px);
-        opacity: 0;
-      }
-      100% {
-        transform: translateX(-50%);
-        opacity: 1;
-      }
+      0% { transform: translate(-50%, -200px); opacity: 0; }
+      100% { transform: translateX(-50%); opacity: 1; }
     }
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
+    @keyframes fadeIn { to { opacity: 1; } }
 
     @keyframes fadeInBounce {
       0% { opacity: 0; transform: scale(0.5) translateY(-50px); }
@@ -167,14 +165,12 @@
     }
 
     @keyframes flicker {
-      from { transform: scale(1); opacity: 1; }
-      to { transform: scale(1.1); opacity: 0.8; }
+      from { transform: translateX(-50%) scale(1); opacity: 1; }
+      to { transform: translateX(-50%) scale(1.1); opacity: 0.85; }
     }
 
     @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(360deg);
-      }
+      to { transform: translateY(110vh) rotate(360deg); }
     }
 
     @keyframes fadeOut {
@@ -198,60 +194,34 @@
 
   <button class="btn" onclick="blowCandle()">💨 Blow the Candle</button>
 
-  <audio autoplay loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
   <script>
     function createConfetti() {
       const confetti = document.createElement("div");
       confetti.classList.add("confetti");
-
-      // random position, color, and animation
       confetti.style.left = Math.random() * 100 + "vw";
       confetti.style.top = "-10px";
-      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+
+      const colors = ["#ffffff", "#ffd700"]; // white + gold
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
       confetti.style.animationDuration = 3 + Math.random() * 3 + "s";
 
       document.body.appendChild(confetti);
-
-      // remove after animation
-      setTimeout(() => {
-        confetti.remove();
-      }, 6000);
+      setTimeout(() => confetti.remove(), 6000);
     }
 
-    // Create confetti continuously
-    setInterval(createConfetti, 200);
-
-    // Blow out candle
     function blowCandle() {
       const flame = document.getElementById("flame");
       flame.classList.add("blow");
       setTimeout(() => {
         flame.style.display = "none";
-        confettiBurst(); // Trigger confetti burst 🎊
-        document.querySelector(".btn").style.display = "none"; // hide button after use
+        confettiBurst();
+        document.querySelector(".btn").style.display = "none";
       }, 1000);
     }
 
-    // Confetti burst after blowing candle
     function confettiBurst() {
       for (let i = 0; i < 80; i++) {
-        const confetti = document.createElement("div");
-        confetti.classList.add("confetti");
-
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.top = Math.random() * 50 + "vh";
-        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        confetti.style.animationDuration = 2 + Math.random() * 2 + "s";
-
-        document.body.appendChild(confetti);
-
-        setTimeout(() => {
-          confetti.remove();
-        }, 4000);
+        createConfetti();
       }
     }
   </script>
