@@ -13,29 +13,33 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: url("bg.jpg") no-repeat center center/cover; /* bg.jpg is in repo root */
+      background: url("bg.jpg") no-repeat center center/cover;
       overflow: hidden;
       font-family: 'Comic Sans MS', cursive, sans-serif;
     }
 
+    h1, h2 {
+      color: white;
+      background: rgba(0, 0, 0, 0);
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      text-align: center;
+    }
+
     h1 {
       font-size: 6vw;
-      color: #5c4033;
-      text-shadow: 2px 2px #fff;
       opacity: 0;
-      animation: fadeInBounce 2s forwards 3s;
+      animation: fadeInBounceBg 2s forwards 3s;
       z-index: 5;
-      text-align: center;
       margin: 2vw 0 0 0;
     }
 
     h2 {
       font-size: 4.5vw;
-      color: #5c4033;
       opacity: 0;
-      animation: fadeIn 2s forwards 4.5s;
+      animation: fadeInBg 2s forwards 4.5s;
       z-index: 5;
-      text-align: center;
       margin: 1vw 0 3vw 0;
     }
 
@@ -92,13 +96,13 @@
 
     .blow { animation: fadeOut 1s forwards; }
 
-    /* Button */
+    /* Buttons */
     .btn {
-      margin-top: 5vh;
-      padding: 3vw 6vw;
+      margin-top: 2vh;
+      padding: 2vw 5vw;
       background: #5c4033;
       color: white;
-      font-size: 4vw;
+      font-size: 3.5vw;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -119,16 +123,33 @@
       animation: fall linear forwards;
     }
 
-    @keyframes drop { 0% { transform: translate(-50%, -200px); opacity: 0; } 100% { transform: translateX(-50%); opacity: 1; } }
-    @keyframes fadeIn { to { opacity: 1; } }
-    @keyframes fadeInBounce {
-      0% { opacity: 0; transform: scale(0.5) translateY(-50px); }
-      60% { opacity: 1; transform: scale(1.2) translateY(10px); }
-      80% { transform: scale(0.9) translateY(-5px); }
-      100% { transform: scale(1) translateY(0); opacity: 1; }
+    /* Animations */
+    @keyframes drop { 
+      0% { transform: translate(-50%, -200px); opacity: 0; } 
+      100% { transform: translateX(-50%); opacity: 1; } 
     }
-    @keyframes flicker { from { transform: translateX(-50%) scale(1); opacity: 1; } to { transform: translateX(-50%) scale(1.1); opacity: 0.85; } }
+
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    @keyframes fadeInBounceBg {
+      0% { opacity: 0; background: rgba(0,0,0,0); transform: scale(0.5) translateY(-50px); }
+      60% { opacity: 1; background: rgba(0,0,0,0.7); transform: scale(1.2) translateY(10px); }
+      80% { transform: scale(0.9) translateY(-5px); }
+      100% { transform: scale(1) translateY(0); opacity: 1; background: rgba(0,0,0,0.7); }
+    }
+
+    @keyframes fadeInBg {
+      0% { opacity: 0; background: rgba(0,0,0,0); }
+      100% { opacity: 1; background: rgba(0,0,0,0.7); }
+    }
+
+    @keyframes flicker { 
+      from { transform: translateX(-50%) scale(1); opacity: 1; } 
+      to { transform: translateX(-50%) scale(1.1); opacity: 0.85; } 
+    }
+
     @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
     @keyframes fadeOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.3); } }
   </style>
 </head>
@@ -146,8 +167,9 @@
   </div>
 
   <button class="btn" onclick="blowCandle()">💨 Blow the Candle</button>
+  <button class="btn" id="stopBtn" style="display:none;" onclick="stopCelebration()">⏹ Stop Celebration</button>
 
-  <!-- Audio file (in same folder as birthday.html) -->
+  <!-- Audio file -->
   <audio id="celebrationAudio" loop>
     <source src="audio.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
@@ -177,6 +199,7 @@
       setTimeout(() => {
         flame.style.display = "none";
         document.querySelector(".btn").style.display = "none";
+        document.getElementById("stopBtn").style.display = "inline-block";
 
         // Start continuous confetti
         confettiInterval = setInterval(createConfetti, 150);
@@ -185,6 +208,25 @@
         const audio = document.getElementById("celebrationAudio");
         audio.play();
       }, 1000);
+    }
+
+    function stopCelebration() {
+      // Stop confetti
+      clearInterval(confettiInterval);
+
+      // Stop audio
+      const audio = document.getElementById("celebrationAudio");
+      audio.pause();
+      audio.currentTime = 0;
+
+      // Show flame again
+      const flame = document.getElementById("flame");
+      flame.style.display = "block";
+      flame.classList.remove("blow");
+
+      // Reset buttons
+      document.querySelector(".btn").style.display = "inline-block";
+      document.getElementById("stopBtn").style.display = "none";
     }
   </script>
 </body>
